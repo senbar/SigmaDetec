@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SigamDetec.Properties {
+namespace SigmaDetec.Properties {
     using System;
     
     
