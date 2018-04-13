@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using SigmaDetec;
+using SigamDetec;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -32,7 +32,7 @@ using System.Windows.Shapes;
 using System.Windows.Shell;
 
 
-namespace SigmaDetec {
+namespace SigamDetec {
     
     
     /// <summary>
@@ -65,7 +65,23 @@ namespace SigmaDetec {
         #line hidden
         
         
-        #line 81 "..\..\MainWindow.xaml"
+        #line 67 "..\..\MainWindow.xaml"
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal System.Windows.Controls.Image RightTopImage;
+        
+        #line default
+        #line hidden
+        
+        
+        #line 75 "..\..\MainWindow.xaml"
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal System.Windows.Controls.Image LeftBotImage;
+        
+        #line default
+        #line hidden
+        
+        
+        #line 85 "..\..\MainWindow.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         internal System.Windows.Controls.Button buttonScreenshot;
         
@@ -73,7 +89,7 @@ namespace SigmaDetec {
         #line hidden
         
         
-        #line 82 "..\..\MainWindow.xaml"
+        #line 86 "..\..\MainWindow.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         internal System.Windows.Controls.Primitives.StatusBar statusBar;
         
@@ -81,7 +97,7 @@ namespace SigmaDetec {
         #line hidden
         
         
-        #line 84 "..\..\MainWindow.xaml"
+        #line 88 "..\..\MainWindow.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         internal System.Windows.Controls.TextBlock statusBarText;
         
@@ -119,41 +135,33 @@ namespace SigmaDetec {
             switch (connectionId)
             {
             case 1:
-            
-            #line 8 "..\..\MainWindow.xaml"
-            ((SigmaDetec.MainWindow)(target)).Loaded += new System.Windows.RoutedEventHandler(this.WindowLoaded);
-            
-            #line default
-            #line hidden
-            
-            #line 8 "..\..\MainWindow.xaml"
-            ((SigmaDetec.MainWindow)(target)).Closing += new System.ComponentModel.CancelEventHandler(this.WindowClosing);
-            
-            #line default
-            #line hidden
-            return;
-            case 2:
             this.layoutGrid = ((System.Windows.Controls.Grid)(target));
             return;
-            case 3:
+            case 2:
             this.CamerasGrid = ((System.Windows.Controls.Grid)(target));
             return;
-            case 4:
+            case 3:
             this.Image = ((System.Windows.Controls.Image)(target));
             return;
+            case 4:
+            this.RightTopImage = ((System.Windows.Controls.Image)(target));
+            return;
             case 5:
+            this.LeftBotImage = ((System.Windows.Controls.Image)(target));
+            return;
+            case 6:
             this.buttonScreenshot = ((System.Windows.Controls.Button)(target));
             
-            #line 81 "..\..\MainWindow.xaml"
+            #line 85 "..\..\MainWindow.xaml"
             this.buttonScreenshot.Click += new System.Windows.RoutedEventHandler(this.ButtonScreenshotClick);
             
             #line default
             #line hidden
             return;
-            case 6:
+            case 7:
             this.statusBar = ((System.Windows.Controls.Primitives.StatusBar)(target));
             return;
-            case 7:
+            case 8:
             this.statusBarText = ((System.Windows.Controls.TextBlock)(target));
             return;
             }
