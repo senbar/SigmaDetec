@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace SigamDetec
+namespace SigmaDetec
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -116,6 +116,34 @@ namespace SigamDetec
                 {
                     // Copy the pixel data from the image to a temporary array
                     colorFrame.CopyPixelDataTo(this.colorPixels);
+
+                    for(int i =0; i < this.colorPixels.Length; i++)
+                    {
+                        if(i%4==2)
+                        {
+                            
+                            var h = this.colorPixels[i -2] + this.colorPixels[i -1];
+                            if (h > 30 )
+                            {
+                                this.colorPixels[i - 1] = 0;
+                                this.colorPixels[i - 2] = 0;
+
+                            }
+                            else
+                            {
+                                if (this.colorPixels[i] < 70)
+                                {
+                                    this.colorPixels[i] = 0;
+                                    continue;
+                                }
+                                this.colorPixels[i] = 255;
+                                continue;
+                            }
+                            this.colorPixels[i] = 0;
+                        }
+
+                    }
+
 
                     // Write the pixel data into our bitmap
                     this.colorBitmap.WritePixels(
