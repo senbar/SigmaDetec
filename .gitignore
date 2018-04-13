@@ -9,7 +9,7 @@ __pycache__/
 SigmaDetec/bin/
 SigmaDetec/obj/
 SigmaDetec/.vs/
-
+*.vs
 
 
 # Distribution / packaging
