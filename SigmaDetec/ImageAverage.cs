@@ -10,7 +10,7 @@ namespace SigamDetec
     {
         private int NumberOfImagesToProcess { get; set; }
         private int SizeOfImage { get; set; }
-        private int[] Memory;
+        private int[] Biuffer;
 
         public ImageAverage(int numberOfImagesToProcess)
         {
@@ -20,21 +20,12 @@ namespace SigamDetec
         public void AddImage(byte[] image)
         {
             int i = 0;
-            int[] bytesAsInts = image.Select(x => (int)x).ToArray();
-            if (Memory == null)
+            foreach (var pixel in Biuffer)
             {
-                Memory = bytesAsInts;
+                Biuffer[i] += image[i];
+                i++;
             }
-            else
-            {
-                foreach (var pixel in Memory)
-                {
-                    Memory[i] += bytesAsInts[i];
-                    i++;
-                }
-            }
-            
-            SizeOfImage = bytesAsInts.Length;
+            SizeOfImage = image.Length;
         }
 
         public byte[] GenerateAverageImage()
@@ -42,20 +33,15 @@ namespace SigamDetec
             int[] AverageImage = new int[SizeOfImage];
             for(int i = 0; i<AverageImage.Length; i++)
             {
-                AverageImage[i] = Memory[i] / NumberOfImagesToProcess;
+                AverageImage[i] = AverageImage[i] / NumberOfImagesToProcess;
             }
             return ConvertIntToByte(AverageImage);
         }
-
+        
         private byte[] ConvertIntToByte(int[] ArrayToConvert)
         {
-
-            byte[] result = new byte[ArrayToConvert.Length];
-            
-            for (int i = 0; i < ArrayToConvert.Length; i++)
-            {
-                result[i] = (byte) ArrayToConvert[i];
-            }
+            byte[] result = new byte[ArrayToConvert.Length * sizeof(int)];
+            Buffer.BlockCopy(ArrayToConvert, 0, result, 0, result.Length);
             return result;
         }
     }

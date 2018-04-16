@@ -76,7 +76,7 @@ namespace SigmaDetec
                 this.rectangleBitmap= new WriteableBitmap(500, 500, 96.0, 96.0, PixelFormats.Bgr32, null);
 
                 // Set the image we display to point to the bitmap where we'll put the image data
-                this.Image.Source = this.colorBitmap;
+                this.Image.Source = this.rectangleBitmap;
 
                 // Add an event handler to be called whenever there is new color frame data
                 this.sensor.ColorFrameReady += this.SensorColorFrameReady;
@@ -125,23 +125,13 @@ namespace SigmaDetec
                     // Copy the pixel data from the image to a temporary array
                     colorFrame.CopyPixelDataTo(this.colorPixels);
 
-                    byte[] redPixels = BitmapColorSegmentation.ExtractRedBitmap(this.colorPixels);
-
+                    byte[] redPixels=BitmapColorSegmentation.ExtractRedBitmap(this.colorPixels);
+                    
                     this.rectangleBitmap.WritePixels(
                         new Int32Rect(0, 0, contour.Width, contour.Height),
                         contour.ReadPixels(),
                         contour.Width * sizeof(int),
                         0);
-
-
-                    // Write the pixel data into our bitmap
-                    this.colorBitmap.WritePixels(
-                        new Int32Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight),
-                        redPixels,
-                        this.colorBitmap.PixelWidth * sizeof(int),
-                        0);
-                        
-
 
                 }
             }
