@@ -10,7 +10,7 @@ namespace SigamDetec
     {
         private int NumberOfImagesToProcess { get; set; }
         private int SizeOfImage { get; set; }
-        private int[] Biuffer;
+        private int[] Memory;
 
         public ImageAverage(int numberOfImagesToProcess)
         {
@@ -20,11 +20,19 @@ namespace SigamDetec
         public void AddImage(byte[] image)
         {
             int i = 0;
-            foreach (var pixel in Biuffer)
+            if(Memory == null)
             {
-                Biuffer[i] += image[i];
-                i++;
+                Memory = image;
             }
+            else
+            {
+                foreach (var pixel in Memory)
+                {
+                    Memory[i] += image[i];
+                    i++;
+                }
+            }
+            
             SizeOfImage = image.Length;
         }
 
@@ -37,7 +45,8 @@ namespace SigamDetec
             }
             return ConvertIntToByte(AverageImage);
         }
-        
+
+
         private byte[] ConvertIntToByte(int[] ArrayToConvert)
         {
             byte[] result = new byte[ArrayToConvert.Length * sizeof(int)];

@@ -62,7 +62,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="RedColourAnalyizer.cs" />
+    <Compile Include="Pixel.cs" />
+    <Compile Include="Point.cs" />
+    <Compile Include="RedColourAnalyzer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

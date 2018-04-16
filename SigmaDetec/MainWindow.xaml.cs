@@ -19,6 +19,10 @@ namespace SigmaDetec
         /// </summary>
         private KinectSensor sensor;
 
+        private ImageAverage ImageAverage;
+        private RedColourAnalyzer RedColouAnalizer;
+        private int Iterator = 0;
+
         /// <summary>
         /// Bitmap that will hold color information
         /// </summary>
@@ -35,6 +39,7 @@ namespace SigmaDetec
         public MainWindow()
         {
             InitializeComponent();
+            ImageAverage = new ImageAverage(15);
         }
 
         /// <summary>
@@ -89,6 +94,7 @@ namespace SigmaDetec
             {
                 this.statusBarText.Text = Properties.Resources.NoKinectReady;
             }
+            Iterator++;
         }
 
         /// <summary>
@@ -115,18 +121,33 @@ namespace SigmaDetec
             {
                 if (colorFrame != null)
                 {
+                    ;
                     // Copy the pixel data from the image to a temporary array
                     colorFrame.CopyPixelDataTo(this.colorPixels);
 
                     byte[] redPixels=BitmapColorSegmentation.ExtractRedBitmap(this.colorPixels);
 
 
-                    // Write the pixel data into our bitmap
-                    this.colorBitmap.WritePixels(
+                     //Generating Average image for 15 frames
+                    ImageAverage.AddImage(redPixels);
+                    Iterator++;
+                    if(Iterator == 15)
+                    {
+                        byte[] generatedImage = ImageAverage.GenerateAverageImage();
+                        this.colorBitmap.WritePixels(
                         new Int32Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight),
-                        redPixels,
+                        generatedImage,
                         this.colorBitmap.PixelWidth * sizeof(int),
                         0);
+                        Iterator = 0;
+                    }
+
+                    ////Write the pixel data into our bitmap
+                    //this.colorBitmap.WritePixels(
+                    //    new Int32Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight),
+                    //    redPixels,
+                    //    this.colorBitmap.PixelWidth * sizeof(int),
+                    //    0);
                 }
             }
         }
