@@ -114,5 +114,8 @@
     <Resource Include="Images\SnapNormal.png" />
     <Resource Include="Images\Status.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sigmas.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
