@@ -20,7 +20,7 @@ namespace SigmaDetec
         private KinectSensor sensor;
 
         private ImageAverage ImageAverage;
-        private RedColourAnalyzer RedColouAnalizer;
+        private RedColourAnalyzer RedColorAnalizer;
         private int Iterator = 0;
 
         /// <summary>
@@ -128,26 +128,24 @@ namespace SigmaDetec
                     byte[] redPixels=BitmapColorSegmentation.ExtractRedBitmap(this.colorPixels);
 
 
-                     //Generating Average image for 15 frames
-                    ImageAverage.AddImage(redPixels);
+                    
+                    
                     Iterator++;
-                    if(Iterator == 15)
+                    if (Iterator == 15)
                     {
-                        byte[] generatedImage = ImageAverage.GenerateAverageImage();
+                        RedColorAnalizer = new RedColourAnalyzer(redPixels, this.colorBitmap.PixelWidth);
+                        RedColorAnalizer.FindRedPixels();
+                        var MeanCoordinates = RedColorAnalizer.CreateRectangleCentre();
+
+                        //Write the pixel data into our bitmap
                         this.colorBitmap.WritePixels(
                         new Int32Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight),
-                        generatedImage,
+                        redPixels,
                         this.colorBitmap.PixelWidth * sizeof(int),
                         0);
                         Iterator = 0;
                     }
-
-                    ////Write the pixel data into our bitmap
-                    //this.colorBitmap.WritePixels(
-                    //    new Int32Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight),
-                    //    redPixels,
-                    //    this.colorBitmap.PixelWidth * sizeof(int),
-                    //    0);
+                    
                 }
             }
         }

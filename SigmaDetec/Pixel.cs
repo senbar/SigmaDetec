@@ -22,8 +22,6 @@ namespace SigamDetec
             this.Green = green;
             this.Blue = blue;
             this.Point = point;
-
-
         }
     }
 }
