@@ -6,8 +6,6 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Drawing;
-using SigmaDetec.Graphics;
 
 namespace SigmaDetec
 {
@@ -21,13 +19,15 @@ namespace SigmaDetec
         /// </summary>
         private KinectSensor sensor;
 
+        private ImageAverage ImageAverage;
+        private RedColourAnalyzer RedColorAnalizer;
+        private int Iterator = 0;
+
         /// <summary>
         /// Bitmap that will hold color information
         /// </summary>
         private WriteableBitmap colorBitmap;
-        private WriteableBitmap rectangleBitmap;
 
-        Contour contour;
         /// <summary>
         /// Intermediate storage for the color data received from the camera
         /// </summary>
@@ -39,6 +39,7 @@ namespace SigmaDetec
         public MainWindow()
         {
             InitializeComponent();
+            ImageAverage = new ImageAverage(15);
         }
 
         /// <summary>
@@ -48,8 +49,6 @@ namespace SigmaDetec
         /// <param name="e">event arguments</param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            contour = new Contour(500, 500);
-
             // Look through all sensors and start the first connected one.
             // This requires that a Kinect is connected at the time of app startup.
             // To make your app robust against plug/unplug, 
@@ -73,7 +72,6 @@ namespace SigmaDetec
 
                 // This is the bitmap we'll display on-screen
                 this.colorBitmap = new WriteableBitmap(this.sensor.ColorStream.FrameWidth, this.sensor.ColorStream.FrameHeight, 96.0, 96.0, PixelFormats.Bgr32, null);
-                this.rectangleBitmap= new WriteableBitmap(500, 500, 96.0, 96.0, PixelFormats.Bgr32, null);
 
                 // Set the image we display to point to the bitmap where we'll put the image data
                 this.Image.Source = this.colorBitmap;
@@ -96,6 +94,7 @@ namespace SigmaDetec
             {
                 this.statusBarText.Text = Properties.Resources.NoKinectReady;
             }
+            Iterator++;
         }
 
         /// <summary>
@@ -122,27 +121,31 @@ namespace SigmaDetec
             {
                 if (colorFrame != null)
                 {
+                    ;
                     // Copy the pixel data from the image to a temporary array
                     colorFrame.CopyPixelDataTo(this.colorPixels);
 
-                    byte[] redPixels = BitmapColorSegmentation.ExtractRedBitmap(this.colorPixels);
-
-                    this.rectangleBitmap.WritePixels(
-                        new Int32Rect(0, 0, contour.Width, contour.Height),
-                        contour.ReadPixels(),
-                        contour.Width * sizeof(int),
-                        0);
+                    byte[] redPixels=BitmapColorSegmentation.ExtractRedBitmap(this.colorPixels);
 
 
-                    // Write the pixel data into our bitmap
-                    this.colorBitmap.WritePixels(
+                    
+                    
+                    Iterator++;
+                    if (Iterator == 15)
+                    {
+                        RedColorAnalizer = new RedColourAnalyzer(redPixels, this.colorBitmap.PixelWidth);
+                        RedColorAnalizer.FindRedPixels();
+                        var MeanCoordinates = RedColorAnalizer.CreateRectangleCentre();
+
+                        //Write the pixel data into our bitmap
+                        this.colorBitmap.WritePixels(
                         new Int32Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight),
                         redPixels,
                         this.colorBitmap.PixelWidth * sizeof(int),
                         0);
-                        
-
-
+                        Iterator = 0;
+                    }
+                    
                 }
             }
         }
