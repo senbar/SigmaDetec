@@ -8,11 +8,13 @@ namespace SigamDetec
 {
     public class BitmapColorSegmentation
     {
-        const int MINIMUM_RED_TRESHHOLD = 70;
-        const int MAXIMUM_NOT_RED_TRESHHOLD = 30;
+        const int MINIMUM_RED_TRESHHOLD = 110;
+        const int MAXIMUM_NOT_RED_TRESHHOLD = 90;
 
         public static byte[] ExtractRedBitmap(byte[] bitmap)
         {
+
+            /// this algorith is placeholder; it is intended to be replaced with more general version/clustering
             for (int i = 0; i < bitmap.Length; i++)
             {
                 //red pixels are of index i%2 ==2
@@ -33,6 +35,8 @@ namespace SigamDetec
                     {
                         if (redIntensity < MINIMUM_RED_TRESHHOLD)
                         {
+                            bitmap[i - 1] = 0;
+                            bitmap[i - 2] = 0;
                             bitmap[i] = 0;
                             continue;
                         }
