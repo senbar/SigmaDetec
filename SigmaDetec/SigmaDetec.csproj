@@ -65,7 +65,21 @@
     </ApplicationDefinition>
     <Compile Include="Graphics\Contour.cs" />
     <Compile Include="Graphics\Pixel.cs" />
+    <Compile Include="ImageOne.xaml.cs">
+      <DependentUpon>ImageOne.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ImageTwo.xaml.cs">
+      <DependentUpon>ImageTwo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RedColourAnalyizer.cs" />
+    <Page Include="ImageOne.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ImageTwo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
