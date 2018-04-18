@@ -134,5 +134,8 @@
   <ItemGroup>
     <Resource Include="Images\sigmas.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="WPF\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
