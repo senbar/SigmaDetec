@@ -73,6 +73,7 @@
     <Compile Include="Pixel.cs" />
     <Compile Include="RedColorAnalyzer.cs" />
     <Compile Include="USB\Communicator.cs" />
+    <Compile Include="USB\PortManager.cs" />
     <Page Include="ImageOne.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
