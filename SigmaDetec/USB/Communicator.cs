@@ -13,7 +13,8 @@ namespace SigmaDetec.USB
         public Communicator()
         {
             _serialPort = new SerialPort();
-            _serialPort.PortName = "COM4"; 
+            ///IF YOU GET ERROR CHANGE TO OPEN COM ON YOUR MACHINE
+            _serialPort.PortName = "COM5"; 
             _serialPort.Open();
         }
 

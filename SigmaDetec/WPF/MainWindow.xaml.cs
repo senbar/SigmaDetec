@@ -4,9 +4,11 @@ using System;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.IO.Ports;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using SigmaDetec.USB;
 
 namespace SigmaDetec
 {
@@ -47,6 +49,19 @@ namespace SigmaDetec
         /// <param name="e">event arguments</param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
+           // code to fill combobox with available coms
+            var portmanager = new PortManager();
+            portmanager.GetAvailablePorts();
+                foreach (string port in portmanager.ports)
+                {
+                    PortComboBox.Items.Add(port);
+                    Console.WriteLine(port);
+                    if (portmanager.ports[0] != null)
+                    { PortComboBox.SelectedItem = portmanager.ports[0]; }
+                }
+
+
+
 
             // Look through all sensors and start the first connected one.
             // This requires that a Kinect is connected at the time of app startup.
@@ -185,5 +200,36 @@ namespace SigmaDetec
                 this.statusBarText.Text = string.Format(CultureInfo.InvariantCulture, "{0} {1}", Properties.Resources.ScreenshotWriteFailed, path);
             }
         }
+
+        ImageOne imageone;
+        private void MainToOneButton_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            if (imageone == null)
+            {
+                imageone = new ImageOne();
+                imageone.Closed += (a, b) => imageone = null;
+                imageone.Show();
+            }
+            else
+            { imageone.Show(); }
+        }
+        ImageTwo imagetwo;
+        private void MainToTwoButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (imagetwo == null)
+            {
+                imagetwo = new ImageTwo();
+                imagetwo.Closed += (a, b) => imagetwo = null;
+                imagetwo.Show();
+            }
+            else
+            { imagetwo.Show(); }
+        }
+        
+ 
+
+
     }
 }

@@ -64,24 +64,25 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Graphics\ColourBitmap.cs" />
-    <Compile Include="ImageOne.xaml.cs">
+    <Compile Include="WPF\ImageOne.xaml.cs">
       <DependentUpon>ImageOne.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ImageTwo.xaml.cs">
+    <Compile Include="WPF\ImageTwo.xaml.cs">
       <DependentUpon>ImageTwo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pixel.cs" />
     <Compile Include="RedColorAnalyzer.cs" />
     <Compile Include="USB\Communicator.cs" />
-    <Page Include="ImageOne.xaml">
+    <Compile Include="USB\PortManager.cs" />
+    <Page Include="WPF\ImageOne.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ImageTwo.xaml">
+    <Page Include="WPF\ImageTwo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="WPF\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -91,7 +92,7 @@
     </Compile>
     <Compile Include="BitmapColorSegmentation.cs" />
     <Compile Include="ImageAverage.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="WPF\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -124,14 +125,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Kinect.ico" />
-    <Resource Include="Images\Logo.png" />
-    <Resource Include="Images\SnapHover.png" />
-    <Resource Include="Images\SnapNormal.png" />
-    <Resource Include="Images\Status.png" />
+    <Resource Include="WPF\Images\Kinect.ico" />
+    <Resource Include="WPF\Images\Logo.png" />
+    <Resource Include="WPF\Images\SnapHover.png" />
+    <Resource Include="WPF\Images\SnapNormal.png" />
+    <Resource Include="WPF\Images\Status.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\sigmas.png" />
+    <Resource Include="WPF\Images\sigmas.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
