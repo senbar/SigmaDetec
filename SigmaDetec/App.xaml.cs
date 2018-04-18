@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-
+using SigmaDetec.USB;
 namespace SigamDetec
 {
     /// <summary>
@@ -13,5 +13,12 @@ namespace SigamDetec
     /// </summary>
     public partial class App : Application
     {
+        private Communicator communicator;
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            communicator = new Communicator();
+            communicator.test();
+        }
     }
 }
