@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 
 namespace SigmaDetec.Graphics
 {
-    public class ColourBitmap
+    class ColourBitmap
     {
         public Bitmap colorDrawingBitmap;
 

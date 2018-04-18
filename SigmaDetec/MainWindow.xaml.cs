@@ -189,12 +189,13 @@ namespace SigmaDetec
         ImageOne imageone;
         private void MainToOneButton_Click(object sender, RoutedEventArgs e)
         {
-            
-            
-            if (imageone == null) { 
-            imageone = new ImageOne();
-            imageone.Closed += (a,b) => imageone = null;
-            imageone.Show();
+
+
+            if (imageone == null)
+            {
+                imageone = new ImageOne();
+                imageone.Closed += (a, b) => imageone = null;
+                imageone.Show();
             }
             else
             { imageone.Show(); }
@@ -202,13 +203,14 @@ namespace SigmaDetec
         ImageTwo imagetwo;
         private void MainToTwoButton_Click(object sender, RoutedEventArgs e)
         {
-            if (imagetwo == null) { 
-             imagetwo = new ImageTwo();
-                imagetwo.Closed += (a,b) => imagetwo = null;
-            imagetwo.Show();
+            if (imagetwo == null)
+            {
+                imagetwo = new ImageTwo();
+                imagetwo.Closed += (a, b) => imagetwo = null;
+                imagetwo.Show();
             }
             else
-            {imagetwo.Show(); }
+            { imagetwo.Show(); }
         }
     }
 }
