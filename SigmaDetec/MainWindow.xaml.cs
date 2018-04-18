@@ -24,15 +24,12 @@ namespace SigmaDetec
         private int Iterator = 0;
 
         /// <summary>
-        /// Bitmap that will hold color information
-        /// </summary>
-        private WriteableBitmap colorBitmap;
 
-        /// <summary>
         /// Intermediate storage for the color data received from the camera
         /// </summary>
-        private byte[] colorPixels;
+        private Graphics.ColourBitmap colorDrawingBitmap;
 
+        private byte[] colorPixels;
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
@@ -49,6 +46,7 @@ namespace SigmaDetec
         /// <param name="e">event arguments</param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
+
             // Look through all sensors and start the first connected one.
             // This requires that a Kinect is connected at the time of app startup.
             // To make your app robust against plug/unplug, 
@@ -64,17 +62,16 @@ namespace SigmaDetec
 
             if (null != this.sensor)
             {
+                this.colorDrawingBitmap = new ColourBitmap(); 
                 // Turn on the color stream to receive color frames
                 this.sensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
 
                 // Allocate space to put the pixels we'll receive
                 this.colorPixels = new byte[this.sensor.ColorStream.FramePixelDataLength];
 
-                // This is the bitmap we'll display on-screen
-                this.colorBitmap = new WriteableBitmap(this.sensor.ColorStream.FrameWidth, this.sensor.ColorStream.FrameHeight, 96.0, 96.0, PixelFormats.Bgr32, null);
 
                 // Set the image we display to point to the bitmap where we'll put the image data
-                this.Image.Source = this.colorBitmap;
+                this.Image.Source = this.colorDrawingBitmap.GetImageSource();
 
                 // Add an event handler to be called whenever there is new color frame data
                 this.sensor.ColorFrameReady += this.SensorColorFrameReady;
@@ -119,31 +116,25 @@ namespace SigmaDetec
         {
             using (ColorImageFrame colorFrame = e.OpenColorImageFrame())
             {
+                
+
                 if (colorFrame != null)
                 {
-                    ;
-                    // Copy the pixel data from the image to a temporary array
-                    colorFrame.CopyPixelDataTo(this.colorPixels);
-
-                    byte[] redPixels=BitmapColorSegmentation.ExtractRedBitmap(this.colorPixels);
-
-
-                    
-                    
                     Iterator++;
-                    if (Iterator == 15)
+                    if (Iterator == 1)
                     {
-                        RedColorAnalizer = new RedColourAnalyzer(redPixels, this.colorBitmap.PixelWidth);
-                        RedColorAnalizer.FindRedPixels();
-                        var MeanCoordinates = RedColorAnalizer.CreateRectangleCentre();
+                            // Copy the pixel data from the image to a temporary array
+                            colorFrame.CopyPixelDataTo(this.colorPixels);
 
-                        //Write the pixel data into our bitmap
-                        this.colorBitmap.WritePixels(
-                        new Int32Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight),
-                        redPixels,
-                        this.colorBitmap.PixelWidth * sizeof(int),
-                        0);
-                        Iterator = 0;
+                            byte[] redPixels=BitmapColorSegmentation.ExtractRedBitmap(this.colorPixels);
+
+                            //load processed crude buffer and draw rectangle on object
+                            colorDrawingBitmap.LoadBitmap(colorFrame, redPixels);
+
+                            //example recttangle todo BESI gimme rectangle of object
+                            colorDrawingBitmap.DrawRectangle(new Rectangle(0,0,50,50));
+                            //hack to get wpf ovbject from WPF
+                            this.Image.Source = colorDrawingBitmap.GetImageSource();
                     }
                     
                 }
@@ -167,7 +158,7 @@ namespace SigmaDetec
             BitmapEncoder encoder = new PngBitmapEncoder();
 
             // create frame from the writable bitmap and add to encoder
-            encoder.Frames.Add(BitmapFrame.Create(this.colorBitmap));
+            // encoder.Frames.Add(BitmapFrame.Create(this.colorBitmap));
 
             string time = System.DateTime.Now.ToString("hh'-'mm'-'ss", CultureInfo.CurrentUICulture.DateTimeFormat);
 
