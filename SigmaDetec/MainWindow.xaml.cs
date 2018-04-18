@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.IO.Ports;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -48,6 +49,8 @@ namespace SigmaDetec
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
 
+            GetAvailablePorts();
+            Loadports();
             // Look through all sensors and start the first connected one.
             // This requires that a Kinect is connected at the time of app startup.
             // To make your app robust against plug/unplug, 
@@ -212,5 +215,27 @@ namespace SigmaDetec
             else
             { imagetwo.Show(); }
         }
+        /// <summary>
+        ///  ports
+        /// </summary>
+        String[] ports;
+
+
+        void Loadports() {
+            foreach (string port in ports) {
+                PortComboBox.Items.Add(port);
+                Console.WriteLine(port);
+                if (ports[0]!=null)
+                {PortComboBox.SelectedItem = ports[0]; }
+                }
+            }
+
+        void GetAvailablePorts() 
+        {
+            ports = SerialPort.GetPortNames();
+        }
+
+
+
     }
 }
