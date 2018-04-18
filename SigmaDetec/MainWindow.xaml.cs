@@ -6,8 +6,6 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Drawing;
-using SigmaDetec.Graphics;
 
 namespace SigmaDetec
 {
@@ -21,7 +19,12 @@ namespace SigmaDetec
         /// </summary>
         private KinectSensor sensor;
 
+        private ImageAverage ImageAverage;
+        private RedColourAnalyzer RedColorAnalizer;
+        private int Iterator = 0;
+
         /// <summary>
+
         /// Intermediate storage for the color data received from the camera
         /// </summary>
         private Graphics.ColourBitmap colorDrawingBitmap;
@@ -33,6 +36,7 @@ namespace SigmaDetec
         public MainWindow()
         {
             InitializeComponent();
+            ImageAverage = new ImageAverage(15);
         }
 
         /// <summary>
@@ -65,6 +69,7 @@ namespace SigmaDetec
                 // Allocate space to put the pixels we'll receive
                 this.colorPixels = new byte[this.sensor.ColorStream.FramePixelDataLength];
 
+
                 // Set the image we display to point to the bitmap where we'll put the image data
                 this.Image.Source = this.colorDrawingBitmap.GetImageSource();
 
@@ -86,6 +91,7 @@ namespace SigmaDetec
             {
                 this.statusBarText.Text = Properties.Resources.NoKinectReady;
             }
+            Iterator++;
         }
 
         /// <summary>
@@ -114,18 +120,23 @@ namespace SigmaDetec
 
                 if (colorFrame != null)
                 {
-                    // Copy the pixel data from the image to a temporary array
-                    colorFrame.CopyPixelDataTo(this.colorPixels);
-                    byte[] redPixels = BitmapColorSegmentation.ExtractRedBitmap(this.colorPixels);
+                    Iterator++;
+                    if (Iterator == 1)
+                    {
+                            // Copy the pixel data from the image to a temporary array
+                            colorFrame.CopyPixelDataTo(this.colorPixels);
 
-                    //load processed crude buffer and draw rectangle on object
-                    colorDrawingBitmap.LoadBitmap(colorFrame, redPixels);
+                            byte[] redPixels=BitmapColorSegmentation.ExtractRedBitmap(this.colorPixels);
 
-                    //example recttangle todo BESI gimme rectangle of object
-                    colorDrawingBitmap.DrawRectangle(new Rectangle(0,0,50,50));
-                    //hack to get wpf ovbject from WPF
-                    this.Image.Source = colorDrawingBitmap.GetImageSource();
+                            //load processed crude buffer and draw rectangle on object
+                            colorDrawingBitmap.LoadBitmap(colorFrame, redPixels);
 
+                            //example recttangle todo BESI gimme rectangle of object
+                            colorDrawingBitmap.DrawRectangle(new Rectangle(0,0,50,50));
+                            //hack to get wpf ovbject from WPF
+                            this.Image.Source = colorDrawingBitmap.GetImageSource();
+                    }
+                    
                 }
             }
         }
