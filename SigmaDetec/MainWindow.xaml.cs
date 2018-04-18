@@ -20,7 +20,7 @@ namespace SigmaDetec
         /// </summary>
         private KinectSensor sensor;
 
-        private ImageAverage ImageAverage;
+        
  
         private int Iterator = 0;
 
@@ -37,7 +37,7 @@ namespace SigmaDetec
         public MainWindow()
         {
             InitializeComponent();
-            ImageAverage = new ImageAverage(15);
+           
         }
 
         /// <summary>
@@ -123,19 +123,22 @@ namespace SigmaDetec
                     Iterator++;
                     if (Iterator == 1)
                     {
-                            // Copy the pixel data from the image to a temporary array
-                            colorFrame.CopyPixelDataTo(this.colorPixels);
+                        // Copy the pixel data from the image to a temporary array
+                        colorFrame.CopyPixelDataTo(this.colorPixels);
 
-                            byte[] redPixels=BitmapColorSegmentation.ExtractRedBitmap(this.colorPixels);
+                        byte[] redPixels = BitmapColorSegmentation.ExtractRedBitmap(this.colorPixels);
+                        RedColorAnalyzer RedColorAnalizer = new RedColorAnalyzer(redPixels, colorFrame.Width);
+                       
+                        var RectangleToDraw = RedColorAnalizer.GetRectangle();
+                        //load processed crude buffer and draw rectangle on object
+                        colorDrawingBitmap.LoadBitmap(colorFrame, redPixels);
 
-                            //load processed crude buffer and draw rectangle on object
-                            colorDrawingBitmap.LoadBitmap(colorFrame, redPixels);
+                        //example recttangle todo BESI gimme rectangle of object
+                        colorDrawingBitmap.DrawRectangle(RectangleToDraw);
+                        //hack to get wpf ovbject from WPF
+                        this.Image.Source = colorDrawingBitmap.GetImageSource();
+                        Iterator = 0;
 
-                            //example recttangle todo BESI gimme rectangle of object
-                            colorDrawingBitmap.DrawRectangle(new Rectangle(0,0,50,50));
-                            //hack to get wpf ovbject from WPF
-                            this.Image.Source = colorDrawingBitmap.GetImageSource();
-                       Iterator = 0;
                     }
                     
                 }

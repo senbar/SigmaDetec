@@ -70,7 +70,8 @@
     <Compile Include="ImageTwo.xaml.cs">
       <DependentUpon>ImageTwo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RedColourAnalyizer.cs" />
+    <Compile Include="Pixel.cs" />
+    <Compile Include="RedColorAnalyzer.cs" />
     <Page Include="ImageOne.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -95,6 +96,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
