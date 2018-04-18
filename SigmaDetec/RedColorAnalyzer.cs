@@ -12,6 +12,7 @@ namespace SigamDetec
         private List<Pixel> PixelImage { get; set; }
         private int ImageWidth { get; set; }
         private double  NumberToDivide =0.5;
+        private double MinSizeOfRectangle = 20;
         private double AverageX { get; set; }
         private double AverageY { get; set; }
         public RedColorAnalyzer(byte[] image,int imagewidth)
@@ -65,10 +66,18 @@ namespace SigamDetec
 
         public Tuple<double,double> CreateRectangleCentre()
         {
-            AverageX = RedPixels.Select(x => x.Point.X).Average();
-            AverageY = RedPixels.Select(x => x.Point.Y).Average();
+            if(RedPixels.Count == 0)
+            {
+                return new Tuple<double, double>(0, 0);
+            }
+            else
+            {
+                AverageX = RedPixels.Select(x => x.Point.X).Average();
+                AverageY = RedPixels.Select(x => x.Point.Y).Average();
+
+                return new Tuple<double, double>(AverageX, AverageY);
+            }
             
-            return new Tuple<double, double>(AverageX, AverageY); ;
         }
 
         public Rectangle GetRectangle()
@@ -80,7 +89,12 @@ namespace SigamDetec
             var RecY2 = AverageY + (size / 2);
             var RectWidth = RecX2 - RecX1;
             var RectHeight = RecY2 - RecY1;
-            return new Rectangle((int)RecX1, (int)RecY1, (int)RectWidth, (int)RectHeight);
+            var GeneratedRectangle = new Rectangle((int)RecX1, (int)RecY1, (int)RectWidth, (int)RectHeight);
+            if(GeneratedRectangle.Size.Height < MinSizeOfRectangle && GeneratedRectangle.Size.Width < MinSizeOfRectangle)
+            {
+                return new Rectangle(0, 0, 0, 0);
+            }
+            return GeneratedRectangle;
         }
     }
 
