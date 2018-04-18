@@ -64,8 +64,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Graphics\ColourBitmap.cs" />
-    <Compile Include="Graphics\Contour.cs" />
-    <Compile Include="Graphics\Pixel.cs" />
     <Compile Include="ImageOne.xaml.cs">
       <DependentUpon>ImageOne.xaml</DependentUpon>
     </Compile>

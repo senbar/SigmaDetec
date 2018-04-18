@@ -1,6 +1,7 @@
 ﻿using Microsoft.Kinect;
 using SigamDetec;
 using System;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Windows;
@@ -20,7 +21,7 @@ namespace SigmaDetec
         private KinectSensor sensor;
 
         private ImageAverage ImageAverage;
-        private RedColourAnalyzer RedColorAnalizer;
+ 
         private int Iterator = 0;
 
         /// <summary>
@@ -62,10 +63,10 @@ namespace SigmaDetec
 
             if (null != this.sensor)
             {
-                this.colorDrawingBitmap = new ColourBitmap(); 
+                
                 // Turn on the color stream to receive color frames
                 this.sensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
-
+                this.colorDrawingBitmap = new Graphics.ColourBitmap();
                 // Allocate space to put the pixels we'll receive
                 this.colorPixels = new byte[this.sensor.ColorStream.FramePixelDataLength];
 
@@ -91,7 +92,6 @@ namespace SigmaDetec
             {
                 this.statusBarText.Text = Properties.Resources.NoKinectReady;
             }
-            Iterator++;
         }
 
         /// <summary>
@@ -135,6 +135,7 @@ namespace SigmaDetec
                             colorDrawingBitmap.DrawRectangle(new Rectangle(0,0,50,50));
                             //hack to get wpf ovbject from WPF
                             this.Image.Source = colorDrawingBitmap.GetImageSource();
+                       Iterator = 0;
                     }
                     
                 }
