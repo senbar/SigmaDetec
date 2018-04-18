@@ -62,8 +62,8 @@
                     <!--Prawy dolny, miejsce na buttony-->
             <Grid HorizontalAlignment="Right" VerticalAlignment="Top">
                 <StackPanel Grid.Row="1">
-                    <Button x:Name="MainToOneButton" Content="Image One" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="55" Width="120" Margin="0 5 0 13"/>
-                    <Button x:Name="MainToTwoButton" Content="Image Two" HorizontalAlignment="Right" VerticalAlignment="Top" Height="55" Width="120"/>
+                    <Button x:Name="MainToOneButton" Content="Image One" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="55" Width="120" Margin="0 5 0 13" Click="MainToOneButton_Click"/>
+                    <Button x:Name="MainToTwoButton" Content="Image Two" HorizontalAlignment="Right" VerticalAlignment="Top" Height="55" Width="120" Click="MainToTwoButton_Click"/>
                 </StackPanel>
             </Grid>
         </Grid>

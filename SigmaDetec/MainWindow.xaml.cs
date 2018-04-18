@@ -182,5 +182,30 @@ namespace SigmaDetec
                 this.statusBarText.Text = string.Format(CultureInfo.InvariantCulture, "{0} {1}", Properties.Resources.ScreenshotWriteFailed, path);
             }
         }
+
+        ImageOne imageone;
+        private void MainToOneButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            
+            if (imageone == null) { 
+            imageone = new ImageOne();
+            imageone.Closed += (a,b) => imageone = null;
+            imageone.Show();
+            }
+            else
+            { imageone.Show(); }
+        }
+        ImageTwo imagetwo;
+        private void MainToTwoButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (imagetwo == null) { 
+             imagetwo = new ImageTwo();
+                imagetwo.Closed += (a,b) => imagetwo = null;
+            imagetwo.Show();
+            }
+            else
+            {imagetwo.Show(); }
+        }
     }
 }
