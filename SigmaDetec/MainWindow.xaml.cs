@@ -121,7 +121,7 @@ namespace SigmaDetec
                 if (colorFrame != null)
                 {
                     Iterator++;
-                    if (Iterator == 1)
+                    if (Iterator == 5)
                     {
                         // Copy the pixel data from the image to a temporary array
                         colorFrame.CopyPixelDataTo(this.colorPixels);
