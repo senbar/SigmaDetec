@@ -126,17 +126,14 @@ namespace SigmaDetec
                     colorFrame.CopyPixelDataTo(this.colorPixels);
 
                     byte[] redPixels=BitmapColorSegmentation.ExtractRedBitmap(this.colorPixels);
-
-
                     
                     
                     Iterator++;
                     if (Iterator == 15)
                     {
                         RedColorAnalizer = new RedColourAnalyzer(redPixels, this.colorBitmap.PixelWidth);
-                        RedColorAnalizer.FindRedPixels();
-                        var MeanCoordinates = RedColorAnalizer.CreateRectangleCentre();
-
+                        var rectangle = RedColorAnalizer.CreateRectangleLeftCorner();
+                        
                         //Write the pixel data into our bitmap
                         this.colorBitmap.WritePixels(
                         new Int32Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight),

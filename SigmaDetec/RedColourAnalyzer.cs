@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.Drawing;
 namespace SigamDetec
 {
     public class RedColourAnalyzer
@@ -12,6 +10,9 @@ namespace SigamDetec
         private List<Pixel> RedPixels { get; set; }
         private List<Pixel> PixelImage { get; set; }
         private int ImageWidth { get; set; }
+        private int NumberToDivide = 10000;
+        private double AverageX { get; set; }
+        private double AverageY { get; set; }
         public RedColourAnalyzer(byte[] image,int imagewidth)
         {
             try
@@ -21,6 +22,9 @@ namespace SigamDetec
                 PixelImage = new List<Pixel>();
                 RedPixels = new List<Pixel>();
                 ConvertFromBytesToPixels();
+                FindRedPixels();
+                CreateRectangleCentre();
+
             }
             catch (Exception ex)
             {
@@ -28,9 +32,8 @@ namespace SigamDetec
             }
         }
 
-        public void FindRedPixels()
+        private void FindRedPixels()
         {
-            
             foreach (var pixel in PixelImage)
             {
                 if(pixel.Red != 0)
@@ -59,11 +62,25 @@ namespace SigamDetec
             }
         }
 
-        public Tuple<double,double> CreateRectangleCentre()
+        private Tuple<double,double> CreateRectangleCentre()
         {
-            var averageOfX = RedPixels.Select(x => x.Point.X).Average();
-            var averageOfY = RedPixels.Select(x => x.Point.Y).Average();
-            return new Tuple<double, double>(averageOfX, averageOfY);
+            AverageX = RedPixels.Select(x => x.Point.X).Average();
+            AverageY = RedPixels.Select(x => x.Point.Y).Average();
+            
+            return new Tuple<double, double>(AverageX, AverageY); ;
+        }
+
+        public Rectangle CreateRectangleLeftCorner()
+        {
+            var size = ImageToProcess.Length / NumberToDivide;
+            var RecX1 = AverageX - (size / 2);
+            var RecX2 = AverageX + (size / 2);
+            var RecY1 = AverageY - (size / 2);
+            var RecY2 = AverageY + (size / 2);
+            var RectWidth = RecX2 - RecX1;
+            var RectHeight = RecY2 - RecY1;
+            return new Rectangle((int)RecX1, (int)RecY1, (int)RectWidth, (int)RectHeight);
+
         }
     }
 
