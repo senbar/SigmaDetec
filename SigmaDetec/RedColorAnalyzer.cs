@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
+
 namespace SigamDetec
 {
-    public class RedColourAnalyzer
+    public class RedColorAnalyzer
     {
         private byte[] ImageToProcess { get; set; }
         private List<Pixel> RedPixels { get; set; }
         private List<Pixel> PixelImage { get; set; }
         private int ImageWidth { get; set; }
-        private int NumberToDivide = 10000;
+        private double  NumberToDivide =0.5;
         private double AverageX { get; set; }
         private double AverageY { get; set; }
-        public RedColourAnalyzer(byte[] image,int imagewidth)
+        public RedColorAnalyzer(byte[] image,int imagewidth)
         {
             try
             {
@@ -28,11 +29,11 @@ namespace SigamDetec
             }
             catch (Exception ex)
             {
-                throw new RedColourAnalyizerException(ex.Message);                
+                throw new RedColorAnalyizerException(ex.Message);                
             }
         }
 
-        private void FindRedPixels()
+        public void FindRedPixels()
         {
             foreach (var pixel in PixelImage)
             {
@@ -44,25 +45,25 @@ namespace SigamDetec
         }
 
 
-        private void ConvertFromBytesToPixels()
+        public void ConvertFromBytesToPixels()
         {
             int j = 0;
             for (int i = 0; i < this.ImageToProcess.Length; i+=4)
             {
-                var alfa = ImageToProcess[i];
-                var red = ImageToProcess[i + 1];
-                var green = ImageToProcess[i + 2];
-                var blue = ImageToProcess[i + 3];
-                var px = j % ImageWidth;
-                int py = (j / ImageWidth);
-                var point = new Point(px,py);
-                var PointToAdd = new Pixel(alfa,red,green,blue, point);
-                PixelImage.Add(PointToAdd);
+                if (ImageToProcess[i + 1] != 0)
+                {
+                    var red = ImageToProcess[i + 1];
+                    var px = j % ImageWidth;
+                    int py = (j / ImageWidth);
+                    var point = new Point(px, py);
+                    var PointToAdd = new Pixel(0, red, 0, 0, point);
+                    PixelImage.Add(PointToAdd);
+                }
                 j++;
             }
         }
 
-        private Tuple<double,double> CreateRectangleCentre()
+        public Tuple<double,double> CreateRectangleCentre()
         {
             AverageX = RedPixels.Select(x => x.Point.X).Average();
             AverageY = RedPixels.Select(x => x.Point.Y).Average();
@@ -70,9 +71,9 @@ namespace SigamDetec
             return new Tuple<double, double>(AverageX, AverageY); ;
         }
 
-        public Rectangle CreateRectangleLeftCorner()
+        public Rectangle GetRectangle()
         {
-            var size = ImageToProcess.Length / NumberToDivide;
+            var size = Math.Sqrt( RedPixels.Count )/ NumberToDivide;
             var RecX1 = AverageX - (size / 2);
             var RecX2 = AverageX + (size / 2);
             var RecY1 = AverageY - (size / 2);
@@ -80,17 +81,16 @@ namespace SigamDetec
             var RectWidth = RecX2 - RecX1;
             var RectHeight = RecY2 - RecY1;
             return new Rectangle((int)RecX1, (int)RecY1, (int)RectWidth, (int)RectHeight);
-
         }
     }
 
-    public class RedColourAnalyizerException : Exception
+    public class RedColorAnalyizerException : Exception
     {
-        public RedColourAnalyizerException()
+        public RedColorAnalyizerException()
         {
 
         }
-        public RedColourAnalyizerException(string message) : base(message)
+        public RedColorAnalyizerException(string message) : base(message)
         {
 
         }
