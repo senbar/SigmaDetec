@@ -10,7 +10,8 @@ SigmaDetec/bin/
 SigmaDetec/obj/
 SigmaDetec/.vs/
 *.vs
-
+SigmaDetecArduino/Debug/
+SigmaDetecArduino/__vm/
 
 # Distribution / packaging
 .Python
