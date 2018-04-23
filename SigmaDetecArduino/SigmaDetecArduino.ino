@@ -41,8 +41,8 @@ void setup() {
 void loop() {
 	//raccio.ServoMovement(30, 90, 90, 90, 90, 90, 90);
 	String Input="";
-	float coords[3];
-	for(int i =0; i<3; i++)
+	float coords[4];
+	for(int i =0; i<4; i++)
 	{
 		while (Input.toFloat() == 0) 
 		{
@@ -59,7 +59,7 @@ void loop() {
 		
 	}
 	float a0, a1, a2, a3;
-	if (!InverseK.solve(coords[0], coords[1], coords[2], a0, a1, a2, a3)) {
+	if (!InverseK.solve(coords[0], coords[1], coords[2], a0, a1, a2, a3,coords[3])) {
 		Serial.println("failed");
 	}
 	else {
