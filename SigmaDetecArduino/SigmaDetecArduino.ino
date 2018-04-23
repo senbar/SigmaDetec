@@ -19,11 +19,6 @@ Servo wrist_ver;
 Servo gripper;
 
 void setup() {
-	shoulder.write(90);
-	base.write(90);
-	elbow.write(90);
-	gripper.write(10);
-
 	// Setup the lengths and rotation limits for each link
 	Link baseh, upperarmh, forearmh, handh;
 	Braccio.begin();
@@ -37,16 +32,24 @@ void setup() {
 	InverseK.attach(baseh, upperarmh, forearmh, handh);
 
 }
-
+float a0, a1, a2, a3, mouth;
 void loop() {
 	//raccio.ServoMovement(30, 90, 90, 90, 90, 90, 90);
 	String Input="";
-	float coords[4];
-	for(int i =0; i<4; i++)
+	float coords[3];
+	for(int i =0; i<3; i++)
 	{
 		while (Input.toFloat() == 0) 
 		{
 			Input = Serial.readString();
+			if (Input == "open") {
+				mouth = 10;
+				Braccio.ServoMovement(30, a2b(a0), a2b(a1), a2b(a2), a2b(a3), 0, mouth);
+			}
+			else if (Input == "close") {
+				mouth = 38;
+				Braccio.ServoMovement(30, a2b(a0), a2b(a1), a2b(a2), a2b(a3), 0, mouth);
+			}
 		}
 		coords[i] = Input.toFloat();
 		Serial.print("coord ");
@@ -58,12 +61,12 @@ void loop() {
 
 		
 	}
-	float a0, a1, a2, a3;
-	if (!InverseK.solve(coords[0], coords[1], coords[2], a0, a1, a2, a3,coords[3])) {
+	
+	if (!InverseK.solve(coords[0], coords[1], coords[2], a0, a1, a2, a3,0)) {
 		Serial.println("failed");
 	}
 	else {
-		Braccio.ServoMovement(30, a2b(a0), a2b(a1), a2b(a2), a2b(a3), 0, 73);
+		Braccio.ServoMovement(30, a2b(a0), a2b(a1), a2b(a2), a2b(a3), 0, mouth);
 		Serial.println("moving");
 	}
 }
