@@ -69,6 +69,7 @@
     <Compile Include="CoordinateHandler.cs" />
     <Compile Include="CoordsConverter.cs" />
     <Compile Include="Graphics\ColourBitmap.cs" />
+    <Compile Include="RectangleCreator.cs" />
     <Compile Include="USB\MovementEncoder.cs" />
     <Compile Include="WPF\ImageOne.xaml.cs">
       <DependentUpon>ImageOne.xaml</DependentUpon>
