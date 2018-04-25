@@ -53,10 +53,11 @@ void loop()
 		if (!InverseK.solve(Movement.Coords[0], Movement.Coords[1], Movement.Coords[2], a0, a1, a2, a3))
 		{
 			Serial.println("failed");
+			
 		}
 		else
 		{
-			Braccio.ServoMovement(30, a2b(a0), a2b(a1), a2b(a2), a2b(a3), Movement.Roate, Movement.Mouth);
+			Braccio.ServoMovement(Movement.Delay, a2b(a0), a2b(a1), a2b(a2), a2b(a3), Movement.Roate, Movement.Mouth);
 			Serial.println("moving");
 		}
 	}

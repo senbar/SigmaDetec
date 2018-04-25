@@ -15,6 +15,7 @@ class CoordinatesClass
 
 
  public:
+	float Delay = 30;
 	float Mouth = 0;
 	float Roate = 0;
 	float Coords[3];

@@ -14,24 +14,22 @@ namespace SigmaDetec.USB
     {
         private const float GRIPPER_CLOSED = 10;
         private const float GRIPPER_OPEN = 38;
-
-
-        //TODO bessi
-        static public string  EncodeArmMovement(float delay, float x, float y, float z)
+       
+        static public string  EncodeArmMovement(float x, float y, float z)
         {
-            string command = "";
+            string command = String.Format("Move:{0}:{1}:{2}",x,y,z);
             return command;
         }
 
         static public string EncodeGripperRotation(float rotation)
         {
-            string command = "";
+            string command = String.Format("Rotate:{0}", rotation);
             return command;
         }
 
         static public string EncodeGripperGape(float gape)
         {
-            string command = "";
+            string command = String.Format("Grabber:{0}", gape);
             return command;
         }
 

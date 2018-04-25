@@ -22,6 +22,17 @@ namespace SigmaDetec.USB
         static public void SetPort(string portName)
         {
             _serialPort.PortName = portName;
+            _serialPort.BaudRate = 115200;
+            _serialPort.Open();
+            new Task(() =>
+            {
+                while (true)
+                {
+
+                    var obtainedString = _serialPort.ReadLine();
+                    Console.WriteLine(obtainedString);
+                }
+            }).Start();
         }
 
         static public void WriteLine(string command)

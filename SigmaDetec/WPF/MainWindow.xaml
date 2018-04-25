@@ -55,8 +55,8 @@
         <Grid x:Name="CamerasGrid" Grid.Row="1" Margin="3 3 3 3" >
             <!--Gorny panel-->
                     <!--Lewy gorny viewbox-->
-                    <Viewbox Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top" Width="640" Height="480">
-                        <Image Name="Image" Width="640" Height="480"/>
+                    <Viewbox Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                <Image Name="Image"  MouseDown="Image_MouseDown" Stretch="Uniform"/>
                     </Viewbox>
                     
                     <!--Prawy dolny, miejsce na buttony-->
@@ -67,6 +67,7 @@
                     </ComboBox>
                     <Button x:Name="MainToOneButton" Content="Image One" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="55" Width="120" Margin="0 5 0 13" Click="MainToOneButton_Click"/>
                     <Button x:Name="MainToTwoButton" Content="Image Two" HorizontalAlignment="Right" VerticalAlignment="Top" Height="55" Width="120" Click="MainToTwoButton_Click"/>
+                    <Button x:Name="TestButton" Content="TestButton" HorizontalAlignment="Right" VerticalAlignment="Top" Height="55" Width="120" Click="TestButton_Click"/>
                 </StackPanel>
             </Grid>
         </Grid>
