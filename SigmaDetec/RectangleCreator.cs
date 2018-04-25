@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SigmaDetec
 {
@@ -18,7 +19,7 @@ namespace SigmaDetec
         {
             ListOfPoints.Add(pointToAdd);
         }
-        public Rectangle CreateRectangle()
+        public Int32Rect CreateRectangle()
         {
             if (ListOfPoints.Count == 2)
             {
@@ -27,11 +28,11 @@ namespace SigmaDetec
 
                 var averageDistance = Math.Abs((height + width) / 2);
                 
-                return new Rectangle((int)ListOfPoints[0].X, (int)ListOfPoints[0].Y, (int)averageDistance, (int)averageDistance);
+                return new Int32Rect((int)ListOfPoints[0].X, (int)ListOfPoints[0].Y, (int)averageDistance, (int)averageDistance);
             }
             else
             {
-                return new Rectangle(0, 0, 0, 0);
+                return new Int32Rect(0, 0, 0, 0);
 
             }
         }

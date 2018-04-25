@@ -22,7 +22,7 @@ namespace SigmaDetec
         /// Active Kinect sensor
         /// </summary>
         private KinectSensor sensor;
-
+        private RectangleCreator RectCreator;
         
  
         private int Iterator = 0;
@@ -40,7 +40,7 @@ namespace SigmaDetec
         public MainWindow()
         {
             InitializeComponent();
-           
+            RectCreator = new RectangleCreator();
         }
 
         /// <summary>
@@ -247,15 +247,13 @@ namespace SigmaDetec
             var centerpoint = new CoordinateHandler(Image.ActualWidth/2, Image.ActualHeight/2);
 
             System.Windows.Point position = e.GetPosition(Image);
-            var coordhandler = new CoordinateHandler(position.X, position.Y);
-
-            var widthtransformed = (position.X - centerpoint.Width) / centerpoint.Width;
-            var heighttransformed = (position.Y - centerpoint.Height) / centerpoint.Height;
-
-            var convertedcoords = new CoordinateHandler(CoordsConverter.ToInverseCoords(widthtransformed), CoordsConverter.ToInverseCoords(heighttransformed));
-
-            Console.WriteLine($"x:{convertedcoords.Width} y:{convertedcoords.Height}");
-            USB.Communicator.WriteLine(USB.MovementEncoder.EncodeArmMovement((float)convertedcoords.Width, (float)convertedcoords.Height, 300));
+            RectCreator.AddPoint(new SigamDetec.Point(position.X, position.Y));
+            if(RectCreator.ListOfPoints.Count == 2)
+            {
+                var createdRect = RectCreator.CreateRectangle();
+                RectCreator.ListOfPoints.Clear();
+            }
+            
 
         }
     }

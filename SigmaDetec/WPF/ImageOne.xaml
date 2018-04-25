@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SigmaDetec"
         mc:Ignorable="d"
-        Title="ImageOne" Height="640" Width="800">
+        Title="ImageOne" Height="640" Width="800" Loaded="WindowLoaded">
 
     <Window.Resources>
         <SolidColorBrush x:Key="MediumGreyBrush" Color="#ff6e6e6e"/>
@@ -54,10 +54,17 @@
         </DockPanel>
         <!--Grid z kamerkami-->
         <Grid x:Name="imageOneCamerasGrid" Grid.Row="1" Margin="3 3 3 3" >
-            <Viewbox Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Width="640" Height="480">
-                <Image Name="Image" Width="640" Height="480" Margin="0 0 0 10"/>
+            <Viewbox Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <Image Stretch="Uniform"  Name="Image" Margin="0 0 0 10" Source="Images\sigma.jpg" MouseDown="Image_MouseDown" />
             </Viewbox>
+            <Grid HorizontalAlignment="Right" VerticalAlignment="Top">
+                <StackPanel>
+                    <Button x:Name="OpenClawButton" Content="Open Claw" Width="70" Height="40" Click="OpenClawButton_Click"/>
+                    <Button x:Name="CloseClawButton" Margin="10"  Content="Close Claw" Width="70" Height="40" Click="CloseClawButton_Click"/>
+                </StackPanel>
+            </Grid>
         </Grid>
+
 
 
 
