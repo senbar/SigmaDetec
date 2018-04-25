@@ -11,6 +11,7 @@ SigmaDetecArduino/__vm/
 SigmaDetec/bin/
 SigmaDetec/obj/
 SigmaDetec/.vs/
+SigmaDetec/Clustering/.idea/
 *.vs
 SigmaDetecArduino/Debug/
 SigmaDetecArduino/__vm/

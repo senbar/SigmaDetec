@@ -12,12 +12,6 @@ namespace SigmaDetec.USB
     {
        public String[] ports;
         
-
-        
-
-
-
-
         public void GetAvailablePorts()
         {
             ports = SerialPort.GetPortNames();

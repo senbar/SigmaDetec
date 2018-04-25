@@ -13,12 +13,10 @@ namespace SigamDetec
     /// </summary>
     public partial class App : Application
     {
-        private Communicator communicator;
+        
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
-            communicator = new Communicator();
-            communicator.test();
+           
         }
     }
 }

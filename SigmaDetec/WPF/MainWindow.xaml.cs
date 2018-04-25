@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using SigmaDetec.USB;
+using System.Windows.Controls;
 
 namespace SigmaDetec
 {
@@ -136,7 +137,7 @@ namespace SigmaDetec
                 if (colorFrame != null)
                 {
                     Iterator++;
-                    if (Iterator == 5)
+                    if (Iterator == 1)
                     {
                         // Copy the pixel data from the image to a temporary array
                         colorFrame.CopyPixelDataTo(this.colorPixels);
@@ -225,11 +226,15 @@ namespace SigmaDetec
                 imagetwo.Show();
             }
             else
-            { imagetwo.Show(); }
+            {
+                imagetwo.Show();
+            }
         }
-        
- 
 
-
+        private void portSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            Console.WriteLine(e.AddedItems[0] as string);
+            Communicator.SetPort(e.AddedItems[0] as string);
+        }
     }
 }

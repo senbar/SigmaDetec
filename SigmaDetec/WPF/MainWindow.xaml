@@ -62,7 +62,7 @@
                     <!--Prawy dolny, miejsce na buttony-->
             <Grid HorizontalAlignment="Right" VerticalAlignment="Top">
                 <StackPanel Grid.Row="1">
-                    <ComboBox x:Name="PortComboBox">
+                    <ComboBox x:Name="PortComboBox" SelectionChanged="portSelectionChanged">
                      
                     </ComboBox>
                     <Button x:Name="MainToOneButton" Content="Image One" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="55" Width="120" Margin="0 5 0 13" Click="MainToOneButton_Click"/>
