@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace SigmaDetec.USB
 {
+    /// <summary>
+    /// class for amanaging avaiable com ports
+    /// </summary>
     class PortManager
     {
        public String[] ports;

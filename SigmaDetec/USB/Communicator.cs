@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace SigmaDetec.USB
 {
+    /// <summary>
+    /// class for communication with arduino via usb port
+    /// </summary>
     static class Communicator
     {
         static SerialPort _serialPort;
@@ -21,17 +24,10 @@ namespace SigmaDetec.USB
             _serialPort.PortName = portName;
         }
 
-        //public void test()
-        //{
-        //    Console.WriteLine("Available Ports:");
-        //    foreach (string s in SerialPort.GetPortNames())
-        //    {
-        //        Console.WriteLine("   {0}", s);
-        //    }
-        //    new Task(() =>
-        //    {
-        //        _serialPort.WriteLine("sdfsdf");
-        //    }).Start();
-        //}
+        static public void WriteLine(string command)
+        {
+            _serialPort.WriteLine(command);
+        }
+
     }
 }
