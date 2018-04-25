@@ -37,7 +37,8 @@ namespace SigmaDetec.USB
 
         static public void WriteLine(string command)
         {
-            _serialPort.WriteLine(command);
+            if(_serialPort.IsOpen)
+                _serialPort.WriteLine(command);
         }
 
     }
