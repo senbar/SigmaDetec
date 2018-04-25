@@ -69,6 +69,7 @@
     <Compile Include="CoordinateHandler.cs" />
     <Compile Include="CoordsConverter.cs" />
     <Compile Include="Graphics\ColourBitmap.cs" />
+    <Compile Include="RectangleCreator.cs" />
     <Compile Include="USB\MovementEncoder.cs" />
     <Compile Include="WPF\ImageOne.xaml.cs">
       <DependentUpon>ImageOne.xaml</DependentUpon>
@@ -143,7 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\Microsoft.Kinect.dll" />
-    <Resource Include="sigma.jpg" />
+    <Resource Include="WPF\Images\sigma.jpg" />
     <Resource Include="bin\Debug\Microsoft.Kinect.xml" />
     <Content Include="bin\Debug\SigmaDetec.exe" />
     <Content Include="bin\Debug\SigmaDetec.pdb" />
