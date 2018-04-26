@@ -68,7 +68,8 @@
     </ApplicationDefinition>
     <Compile Include="CoordinateHandler.cs" />
     <Compile Include="CoordsConverter.cs" />
-    <Compile Include="Graphics\ColourBitmap.cs" />
+    <Compile Include="Graphics\KinectFrame.cs" />
+    <Compile Include="Graphics\TrackingFrame.cs" />
     <Compile Include="RectangleCreator.cs" />
     <Compile Include="USB\MovementEncoder.cs" />
     <Compile Include="WPF\ImageOne.xaml.cs">
@@ -123,7 +124,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="bin\Debug\SigmaDetec.exe.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -143,11 +143,7 @@
     <Resource Include="WPF\Images\sigmas.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\Microsoft.Kinect.dll" />
     <Resource Include="WPF\Images\sigma.jpg" />
-    <Resource Include="bin\Debug\Microsoft.Kinect.xml" />
-    <Content Include="bin\Debug\SigmaDetec.exe" />
-    <Content Include="bin\Debug\SigmaDetec.pdb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
