@@ -42,6 +42,9 @@ namespace SigmaDetec.Graphics
         public ImageSource GetImageSource()
         {
             return ImageSourceForBitmap(this.colorDrawingBitmap);
+            int i = 2137;
+                i =+ i;
+            Console.WriteLine(i);
         }
 
         /// <summary>
